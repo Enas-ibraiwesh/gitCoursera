@@ -1,0 +1,29 @@
+{
+  "name": "git-test",
+  "version": "1.0.0",
+  "description": "test directory",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "git repositry (https://github.com/Enas-ibraiwesh/IT-seminar.git)",
+    "lite": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enas-ibraiwesh/IT-seminar.git"
+  },
+  "author": "enas ibraiwesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Enas-ibraiwesh/IT-seminar/issues"
+  },
+  "homepage": "https://github.com/Enas-ibraiwesh/IT-seminar#readme",
+  "dependencies": {
+    "lite-server": "^2.6.1",
+    "save-dev": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "onchange": "^3.3.0",
+    "parallelshell": "^3.0.2"
+  }
+}
