@@ -34,8 +34,8 @@ export class DishdetailComponent implements OnInit {
     this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
-  
+
   goBack(): void {
     this.location.back();
   }
-}
+  }
