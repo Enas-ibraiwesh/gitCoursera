@@ -29,13 +29,13 @@ export class LeaderService {
 
 
   getLeaders(): Observable<Leader[]> {
-    return this.http.get<Leader[]>(baseURL + 'leaders')
+    return this.http.get<Leader[]>(baseURL + 'leadership')
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
 
   getFeaturedLeader(): Observable<Leader> {
-    return this.http.get<Leader[]>(baseURL + 'leaders?featured=true').pipe(map(leaders => leaders[0]))
+    return this.http.get<Leader[]>(baseURL + 'leadership?featured=true').pipe(map(leadership => leadership[0]))
     .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 
 import { Dish } from '../shared/dish';
+
 import { DishService } from '../services/dish.service';
 
 import { Params, ActivatedRoute } from '@angular/router';
@@ -79,12 +80,9 @@ export class DishdetailComponent implements OnInit {
     }
 
     onSubmit() {
-      const newComment = {
-        author: this.commentForm.value.author,
-        rating: this.commentForm.value.rating,
-        comment: this.commentForm.value.comment,
-        date: new Date().toISOString()
-      };
+      this.comment = this.commentForm.value;
+      this.comment.date = new Date().toISOString();
+      console.log(this.comment);
       this.dishcopy.comments.push(this.comment);
     this.dishservice.putDish(this.dishcopy)
       .subscribe(dish => {
