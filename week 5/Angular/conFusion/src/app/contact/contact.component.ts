@@ -86,35 +86,6 @@ export class ContactComponent implements OnInit {
   this.onValueChanged(); // (re)set validation messages now
   }
 
-  // onSubmit() {
-  //   this.feedback = this.feedbackForm.value;
-  //   console.log(this.feedback);
-  //   this.visibility = 'hidden';
-  //   this.visibility2 = 'shown';
-  //   this.feedbackForm.reset({
-  //     firstname: '',
-  //     lastname: '',
-  //     telnum: '',
-  //     email: '',
-  //     agree: false,
-  //     contacttype: 'None',
-  //     message: ''
-  //   });
-  //   this.feedbackFormDirective.resetForm();
-  //   this.feedbackService
-  // .submitFeedback(this.feedback)
-  // .subscribe(feedback => this.feedback =feedback,
-    
-
-  //   // this.feedbackService.submitFeedback(this.feedback)
-  //   //   .subscribe(feedback => {
-  //   //     this.feedback = feedback; this.feedback = feedback;
-  //   //   },
-  //     errmess => { this.feedback = null; this.errMess = <any>errmess; });
-  //     }
-
- 
-
   onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }
     const form = this.feedbackForm;
