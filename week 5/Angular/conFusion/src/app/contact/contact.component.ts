@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Feedback, ContactType } from '../shared/feedback';
-import { flyInOut } from '../animations/app.animation';
+import { flyInOut,expand } from '../animations/app.animation';
+
+
+import { FeedbackService } from '../services/feedback.service';
+
+
 
 @Component({
   selector: 'app-contact',
@@ -13,13 +18,18 @@ import { flyInOut } from '../animations/app.animation';
     'style': 'display: block;'
     },
     animations: [
-      flyInOut()
+      flyInOut(),
+      expand()
     ]
 })
 export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
+  errMess:string;
+  feedbackSend: Feedback;
+  feedbackFormVisible: boolean;
+
 
   @ViewChild('fform') feedbackFormDirective;
   formErrors = {
@@ -49,8 +59,10 @@ export class ContactComponent implements OnInit {
       'email':         'Email not in valid format.'
     },
   };
-  constructor(private fb: FormBuilder) { 
+
+  constructor(private fb: FormBuilder,private feedbackService: FeedbackService) { 
     this.createForm();
+    this.feedbackFormVisible = true;
 
   }
 
@@ -74,21 +86,34 @@ export class ContactComponent implements OnInit {
   this.onValueChanged(); // (re)set validation messages now
   }
 
-  onSubmit() {
-    this.feedback = this.feedbackForm.value;
-    console.log(this.feedback);
-    this.feedbackForm.reset({
-      firstname: '',
-      lastname: '',
-      telnum: '',
-      email: '',
-      agree: false,
-      contacttype: 'None',
-      message: ''
-    });
-    this.feedbackFormDirective.resetForm();
+  // onSubmit() {
+  //   this.feedback = this.feedbackForm.value;
+  //   console.log(this.feedback);
+  //   this.visibility = 'hidden';
+  //   this.visibility2 = 'shown';
+  //   this.feedbackForm.reset({
+  //     firstname: '',
+  //     lastname: '',
+  //     telnum: '',
+  //     email: '',
+  //     agree: false,
+  //     contacttype: 'None',
+  //     message: ''
+  //   });
+  //   this.feedbackFormDirective.resetForm();
+  //   this.feedbackService
+  // .submitFeedback(this.feedback)
+  // .subscribe(feedback => this.feedback =feedback,
+    
 
-  }
+  //   // this.feedbackService.submitFeedback(this.feedback)
+  //   //   .subscribe(feedback => {
+  //   //     this.feedback = feedback; this.feedback = feedback;
+  //   //   },
+  //     errmess => { this.feedback = null; this.errMess = <any>errmess; });
+  //     }
+
+ 
 
   onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }
@@ -108,6 +133,33 @@ export class ContactComponent implements OnInit {
         }
       }
     }
+  }
+
+
+  onSubmit() {
+    this.feedbackFormVisible = false;
+    this.feedback = this.feedbackForm.value;
+    console.log(this.feedback);
+
+    this.feedbackService.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+          this.feedbackSend = feedback, 
+          setTimeout(() => {
+              this.feedbackSend = null;
+              this.feedbackFormVisible = true; 
+            }, 5000); },
+          errmess => { this.feedbackSend = null; this.errMess = <any>errmess; });
+    
+    this.feedbackForm.reset({
+      firstname: '',
+      lastname: '',
+      telnum: '',
+      email: '',
+      agree: false,
+      contacttype: 'None',
+      message: ''
+    });
+    this.feedbackFormDirective.resetForm();
   }
 
 }
